@@ -20,4 +20,6 @@ public:
         generate(v, "", 0, 0, n);
         return v;
     }
+    // Space O(2*n)
+    // Time O()
 };
