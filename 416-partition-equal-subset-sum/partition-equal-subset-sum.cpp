@@ -21,7 +21,22 @@ public:
         if(sum %2 != 0){
             return false;
         }
-        vector<vector<int>> dp(nums.size(), vector<int>(sum+1, -1));
-        return fun(nums, 0, sum/2, 0, dp);
+        vector<vector<bool>> dp(nums.size()+1, vector<bool>(sum+1));
+        for(int i=0; i<sum+1; i++){
+            dp[0][i] = false;
+        }
+        for(int i=0; i<nums.size()+1; i++){
+            dp[i][0] = true;
+        }
+        for(int i=1; i<nums.size()+1; i++){
+            for(int j=1; j<sum+1; j++){
+                if(j >= nums[i-1]){
+                    dp[i][j] = (dp[i-1][j] || dp[i-1][j-nums[i-1]]);
+                }else{
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        return dp[nums.size()][sum/2];
     }
 };
