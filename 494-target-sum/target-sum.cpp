@@ -1,29 +1,29 @@
 class Solution {
 public:
-    int fun(vector<int> &nums, int sum, int idx, int currsum, vector<vector<int>> &dp){
-        if(idx >= nums.size()){
-            if(sum == currsum){
-                return 1;
-            }
-            return 0;
+    int fun(vector<int>& nums, int target, int idx){
+        if(idx < 0) {
+            return target == 0 ? 1 : 0;
         }
-        if(dp[idx][currsum] != -1){
-            return dp[idx][currsum];
+        int take = 0;
+        if(target >= nums[idx]){
+            take = fun(nums, target - nums[idx], idx-1);
         }
-        // nottake
-        int nottake = fun(nums, sum, idx+1, currsum, dp);
-        // take
-        int take = fun(nums, sum, idx+1, currsum + nums[idx], dp);
+        int nottake = fun(nums, target, idx-1);
 
-        return dp[idx][currsum] = nottake + take;
+        return take + nottake;
+
     }
     int findTargetSumWays(vector<int>& nums, int target) {
         int n = nums.size();
         int sum = accumulate(nums.begin(), nums.end(), 0);
-        if(sum < target) return 0;
-        if((target+sum) % 2 != 0) return 0;
-        int s1 = (target + sum)/2;
-        vector<vector<int>> dp(n, vector<int>(sum+1, -1));
-        return fun(nums, s1, 0, 0, dp);
+        if((sum + target) % 2 != 0){
+            return 0;
+        }
+        if(target > sum){
+            return 0;
+        }
+        int newtarget = (sum + target)/2;
+
+        return fun(nums, newtarget, n-1);
     }
 };
