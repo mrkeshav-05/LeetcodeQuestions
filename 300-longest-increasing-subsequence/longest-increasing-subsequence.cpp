@@ -16,7 +16,6 @@ public:
     }
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        int len = 0;
         vector<vector<int>> dp(n, vector<int>(n+1, -1));
         return fun(nums, 0, -1, dp);
     }
