@@ -3,12 +3,13 @@ public:
     int fun(vector<int> nums, int mid){
         int ans = 0;
         for(int i:nums){
-            if(i%mid == 0){
-                ans += ceil(i/mid);
-            }else{
-                int temp = i/mid;
-                ans += 1+temp;
-            }
+            // if(i%mid == 0){
+            //     ans += ceil(i/mid);
+            // }else{
+            //     int temp = i/mid;
+            //     ans += 1+temp;
+            // }
+            ans += ceil((double)i/mid);
         }
         return ans;
     }
